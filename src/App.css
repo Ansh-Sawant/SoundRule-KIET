@@ -1,0 +1,54 @@
+
+.bg {
+    background-image: url("./background1.jpg");
+    height: 100vh;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.mainBody{
+    padding-top: 80px;
+}
+
+.soundRule{
+    color: whitesmoke;
+    text-align: center;
+    font-size: 68px;
+    font-family: 'Architects Daughter', cursive;
+    font-weight: bold;
+}
+
+.tagline{
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    font-family: 'Architects Daughter', cursive;
+    font-weight: bold;
+}
+
+.textStyle{
+    padding-top: 30px;
+}
+
+.loginBox{
+    color: black;
+    /* background-color: rgba(248, 246, 246,0.6); */
+    border-radius: 10px;
+    padding: 3px 19px;
+    text-align: center;
+}
+
+.signInButton{
+    margin-top: 25px  ;
+}
+
+@media (min-width: 425px) and (max-width: 768px) {
+    .bg {
+        background-image: url("./background1.jpg");
+        height: 150vh;
+        background-position: right center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
