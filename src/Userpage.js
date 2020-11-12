@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import app from "./fire";
 import './App.css';
-import {Navbar, Nav, Button, Container, Row, Col, Image} from 'react-bootstrap';
+import {Container, Row, Col, Image} from 'react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import logo from './Images/sound.jpeg';
+// import logo from './Images/sound.jpeg';
 
 
 const db = app.firestore();

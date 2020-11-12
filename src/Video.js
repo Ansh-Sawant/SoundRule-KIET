@@ -1,6 +1,5 @@
 import React from 'react';
 import {Row, Col, Image} from 'react-bootstrap';
-import logo from './Images/sound.jpeg';
 
 const Video = (props) => {
 
