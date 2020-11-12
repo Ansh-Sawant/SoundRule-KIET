@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+// import Allvideos from './Allvideos';
+// import Userpage from './Userpage';
 
 ReactDOM.render(
   <React.StrictMode>

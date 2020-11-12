@@ -1,15 +1,23 @@
 import React from 'react';
 import {Navbar, Nav, Button} from 'react-bootstrap';
 import logo from './Images/sound.jpeg';
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import Userpage from './Userpage';
+import Allvideos from './Allvideos';
 
 const Homemainpage = (props) => {
+
+    const currUser = props.user.displayName;
+    const email = props.user.email;
+    const photoURL = props.user.photoURL;
 
     return(
         <>
 
+            <Router>
             <Navbar collapseOnSelect expand="lg" bg="light" variant="light" fixed="top">
-
-            <Navbar.Brand href="#home">
+            
+            <Link exact to="/">
                 <img
                     src={logo}
                     width="70" height="35"
@@ -17,7 +25,7 @@ const Homemainpage = (props) => {
                     alt="SoundRule" 
                 />
                 
-            </Navbar.Brand>
+            </Link>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
             <Navbar.Collapse id="responsive-navbar-nav">
@@ -26,15 +34,22 @@ const Homemainpage = (props) => {
                     <Nav.Link href="#contact">Contact Us</Nav.Link>      
                 </Nav>
                 <Nav>
-                <Button onClick= {props.handleLogout} > LOG OUT </Button>
-                <Nav.Link href="#"> {props.user.displayName} </Nav.Link>        
+                    <Button onClick= {props.handleLogout} > LOG OUT </Button>
+                    <Link to="/user" >{currUser}</Link>
                 </Nav>
-            </Navbar.Collapse>
+            </Navbar.Collapse>            
 
             </Navbar>
 
-            <h1>W</h1>
-            <h1>Welcome {props.user.displayName} </h1>
+            <Switch>
+                <Route path="/" exact component={Allvideos}/>  
+                <Route path="/user" render={(props) => (
+                    <Userpage {...props} name={currUser} email={email} photoURL={photoURL}/>
+                )} /> 
+            </Switch>
+
+            </Router>
+            
         </>
     );
 
