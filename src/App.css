@@ -48,6 +48,11 @@
     padding: 10px 0px;
 }
 
+.category{
+    background-color: #e4e8ec;
+    margin: 20px 0px;
+    border-radius: 5px;
+}
 
 @media (min-width: 425px) and (max-width: 768px) {
     .bg {

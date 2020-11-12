@@ -3,6 +3,7 @@ import app from "./fire";
 import './App.css';
 import {Navbar, Nav, Button, Container, Row, Col, Image} from 'react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import logo from './Images/sound.jpeg';
 
 
 const db = app.firestore();
@@ -10,21 +11,31 @@ const db = app.firestore();
 const Userpage = (props) => {
 
   const [fileUrl, setFileUrl] = useState(null);
+  const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [users, setUsers] = useState([]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    let newDate = new Date()
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
     const username = props.name;
     const video = e.target.videoname.value;
     const cate = e.target.category.value;
+    const profilepic = props.photoURL;
     if (!username || !fileUrl) {
       return;
     }
     await db.collection("users").doc(video).set({
       name: username,
       videoname: video,
+      thumbnail: thumbnailUrl,
       avatar: fileUrl,
       category: cate,
+      profilepic: profilepic,
+      dateadded: `${date}/${month}/${year}`,
     });
   };
 
@@ -34,6 +45,14 @@ const Userpage = (props) => {
     const fileRef = storageRef.child(file.name);
     await fileRef.put(file);
     setFileUrl(await fileRef.getDownloadURL());
+  };
+
+  const onThumbnailFileChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = app.storage().ref();
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file);
+    setThumbnailUrl(await fileRef.getDownloadURL());
   };
 
   useEffect(() => {
@@ -100,7 +119,8 @@ const Userpage = (props) => {
                 <form onSubmit={onSubmit}>
                     <p>File: &nbsp;<input type="file" accept="video/*" onChange={onFileChange} /></p>
                     <p>Video Name:&nbsp; <input type="text" name="videoname" placeholder="VIDEO NAME" /></p>
-                    <label for="cars">Category: &nbsp; </label>
+                    <p> Thumbnail:&nbsp; <input type="file" accept="image/*" onChange={onThumbnailFileChange} /></p>
+                    <label for="category">Category: &nbsp; </label>
                     <select name="category">
                       <option value="New Song">New Song</option>
                       <option value="Religious">Religious</option>
@@ -122,11 +142,12 @@ const Userpage = (props) => {
                     { users.map((user) => {
                       return (
                           (user.name === props.name) ? 
-                          <Col md={3} key={user.videoname}>
-                                <video width="320" height="180" src={user.avatar} controls />
-                                <p>{user.videoname}</p>
-                                <p>{user.name}</p>
-                                <p>{user.category}</p>
+                          <Col md={3} key={user.videoname} >
+                              <video width="320" height="180" src={user.avatar} poster={user.thumbnail} controls />                                
+                              <Row style={{marginBottom: "20px"}}>
+                                  <Col xs={2} > <Image src={props.photoURL} width="40" height="40" alt="profile" roundedCircle /> </Col>
+                                  <Col xs ><h6>{user.videoname}</h6>  {user.name} <br /> Date: {user.dateadded} </Col>
+                              </Row>
                           </Col> : ""
                           
                       );

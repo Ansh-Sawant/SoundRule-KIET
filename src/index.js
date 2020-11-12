@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import Allvideos from './Allvideos';
-// import Userpage from './Userpage';
+import Allvideos from './Allvideos';
+import Userpage from './Userpage';
+import logo from './Images/sound.jpeg';
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* <Allvideos /> */}
+    {/* <Userpage name={"currUser"} email={"email"} photoURL={logo}/> */}
     <App />
   </React.StrictMode>,
   document.getElementById('root')
