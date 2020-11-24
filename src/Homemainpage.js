@@ -6,6 +6,7 @@ import Userpage from "./Userpage";
 import Allvideos from "./Allvideos";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
+import ErrorPage from "./ErrorPage";
 
 const Homemainpage = (props) => {
   const currUser = props.user.displayName;
@@ -89,6 +90,7 @@ const Homemainpage = (props) => {
           />
           <Route path="/aboutus" component={AboutUs} />
           <Route path="/contactus" component={ContactUs} />
+          <Route component={ErrorPage} />
         </Switch>
       </Router>
     </>

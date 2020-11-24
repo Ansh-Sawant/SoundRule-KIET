@@ -1,48 +1,10 @@
 import React from "react";
-import {
-  Navbar,
-  Nav,
-  Button,
-  Container,
-  Row,
-  Col,
-  Image,
-} from "react-bootstrap";
-import logo from "./Images/sound.jpeg";
+import { Button, Container, Row, Col, Image } from "react-bootstrap";
 import cimage from "./Images/centerimg.png";
 
 const Homelogin = (props) => {
   return (
     <>
-      <Navbar
-        collapseOnSelect
-        expand="lg"
-        bg="light"
-        variant="light"
-        fixed="top"
-      >
-        <Navbar.Brand href="#">
-          <img
-            src={logo}
-            width="70"
-            height="35"
-            className="d-inline-block align-top"
-            alt="SoundRule"
-          />
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="./aboutus">About Us</Nav.Link>
-            <Nav.Link href="./contactus">Contact Us</Nav.Link>
-          </Nav>
-          <Nav>
-            <Button onClick={props.onSubmit}>SIGN IN</Button>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-
       <div className="bg">
         <Container fluid className="mainBody">
           <h1 className="soundRule">

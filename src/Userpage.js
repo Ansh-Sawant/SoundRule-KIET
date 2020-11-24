@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import app from "./fire";
 import "./App.css";
-import { Container, Row, Col, Image } from "react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-// import logo from "./Images/sound.jpeg";
 
 const db = app.firestore();
 
@@ -23,7 +22,10 @@ const Userpage = (props) => {
     const video = e.target.videoname.value;
     const cate = e.target.category.value;
     const profilepic = props.photoURL;
-    if (!video || !cate) {
+    if (!username || !video || !cate) {
+      window.alert(
+        "All Fields Are Necessary On Uploading Your Video. Please Fill Again"
+      );
       return;
     }
     await db
@@ -47,7 +49,10 @@ const Userpage = (props) => {
     const universityRoll = e.target.universityRoll.value;
     const branch = e.target.branch.value;
     const yearOfStudy = e.target.yearOfStudy.value;
-    if (!username) {
+    if (!username || !universityRoll || !branch || !yearOfStudy) {
+      window.alert(
+        "All Fields Are Necessary On Updating Your Profile. Please Fill Again"
+      );
       return;
     }
     await db.collection("usersdetail").doc(username).set({
@@ -128,7 +133,11 @@ const Userpage = (props) => {
           >
             <Col xs={12} className="noteBox">
               <h5>NOTE:- </h5>
-              <p> &nbsp; - The Maximum Size of the Video must be 10 mb</p>
+              <p>
+                &nbsp; - The Maximum Size of the Video must be 10 mb <br />
+                &nbsp; - All Fields Are Necessary On Uploading Your Video and
+                Updating Your Profile
+              </p>
             </Col>
           </Row>
         </Container>
@@ -258,8 +267,8 @@ const Userpage = (props) => {
                         />
                       </Col>
                       <Col xs>
-                        <h6>{user.videoname}</h6> {user.name} <br /> Date:
-                        {user.dateadded}
+                        <h6>{user.videoname}</h6> {user.name} | {user.dateadded}{" "}
+                        | {user.category}
                       </Col>
                     </Row>
                   </Col>
