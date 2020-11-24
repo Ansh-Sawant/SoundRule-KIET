@@ -42,7 +42,7 @@
 }
 
 .personalProfile {
-  background-color: rgba(133, 124, 124, 0.5);
+  background-color: #e0a800;
   margin: 0px -15px;
   padding: 10px 0px;
 }
@@ -51,6 +51,21 @@
   background-color: #e4e8ec;
   margin: 20px 0px;
   border-radius: 5px;
+}
+
+button {
+  padding: 6px;
+  border-radius: 5px !important;
+  border: 1px solid #e0a800;
+  background-color: #e0a800;
+}
+
+.noteBox {
+  border: 1px solid red;
+  border-radius: 10px;
+  background-color: rgb(248, 120, 120);
+  color: white;
+  padding-top: 10px;
 }
 
 @media (min-width: 425px) and (max-width: 768px) {

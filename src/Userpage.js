@@ -3,7 +3,7 @@ import app from "./fire";
 import "./App.css";
 import { Container, Row, Col, Image } from "react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-// import logo from './Images/sound.jpeg';
+// import logo from "./Images/sound.jpeg";
 
 const db = app.firestore();
 
@@ -12,7 +12,7 @@ const Userpage = (props) => {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [users, setUsers] = useState([]);
 
-  const onSubmit = async (e) => {
+  const onVideoSubmit = async (e) => {
     e.preventDefault();
     let newDate = new Date();
     let date = newDate.getDate();
@@ -23,7 +23,7 @@ const Userpage = (props) => {
     const video = e.target.videoname.value;
     const cate = e.target.category.value;
     const profilepic = props.photoURL;
-    if (!username || !fileUrl) {
+    if (!video || !cate) {
       return;
     }
     await db
@@ -40,8 +40,31 @@ const Userpage = (props) => {
       });
   };
 
+  const onUserDetailSubmit = async (e) => {
+    e.preventDefault();
+    const username = props.name;
+    const email = props.email;
+    const universityRoll = e.target.universityRoll.value;
+    const branch = e.target.branch.value;
+    const yearOfStudy = e.target.yearOfStudy.value;
+    if (!username) {
+      return;
+    }
+    await db.collection("usersdetail").doc(username).set({
+      Name: username,
+      Email: email,
+      UniversityRoll: universityRoll,
+      Branch: branch,
+      Year: yearOfStudy,
+    });
+  };
+
   const onFileChange = async (e) => {
     const file = e.target.files[0];
+    if (file.size > 10 * 1024 * 1024) {
+      window.alert("File Size Should Be Less Than 10 mb! Please Try Again");
+      return;
+    }
     const storageRef = app.storage().ref();
     const fileRef = storageRef.child(file.name);
     await fileRef.put(file);
@@ -70,30 +93,6 @@ const Userpage = (props) => {
 
   return (
     <>
-      {/* <Navbar collapseOnSelect expand="lg" bg="light" variant="light" fixed="top">
-
-          <Navbar.Brand href="#home">
-              <img
-                  src={logo}
-                  width="70" height="35"
-                  className="d-inline-block align-top"
-                  alt="SoundRule" 
-              />
-              
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-
-          <Navbar.Collapse id="responsive-navbar-nav">
-              <Nav className="mr-auto">
-                  <Nav.Link href="#about">About Us</Nav.Link>      
-                  <Nav.Link href="#contact">Contact Us</Nav.Link>      
-              </Nav>
-              <Nav>
-              <Button onClick={props.onSubmit}>SIGN IN</Button>        
-              </Nav>
-          </Navbar.Collapse>
-
-        </Navbar> */}
       <div style={{ paddingTop: "60px" }}>
         <Container fluid>
           <div className="personalProfile">
@@ -109,7 +108,11 @@ const Userpage = (props) => {
                     roundedCircle
                   />
                 </Col>
-                <Col xs={12} md={4} style={{ textAlign: "center" }}>
+                <Col
+                  xs={12}
+                  md={4}
+                  style={{ textAlign: "center", color: "whitesmoke" }}
+                >
                   <h1>{props.name}</h1>
                   <h5>{props.email}</h5>
                 </Col>
@@ -117,48 +120,121 @@ const Userpage = (props) => {
               </Row>
             </div>
           </div>
+        </Container>
 
-          <Row>
-            <Col></Col>
+        <Container>
+          <Row
+            style={{ marginTop: "40px", fontFamily: "'Roboto', sans-serif" }}
+          >
+            <Col xs={12} className="noteBox">
+              <h5>NOTE:- </h5>
+              <p> &nbsp; - The Maximum Size of the Video must be 10 mb</p>
+            </Col>
           </Row>
         </Container>
-        <div style={{ paddingTop: "50px", margin: "25px" }}>
-          <h3>Upload Video</h3>
-          <br />
-          <form onSubmit={onSubmit}>
-            <p>
-              File: &nbsp;
-              <input type="file" accept="video/*" onChange={onFileChange} />
-            </p>
-            <p>
-              Video Name:&nbsp;
-              <input type="text" name="videoname" placeholder="VIDEO NAME" />
-            </p>
-            <p>
-              Thumbnail:&nbsp;
-              <input
-                type="file"
-                accept="image/*"
-                onChange={onThumbnailFileChange}
-              />
-            </p>
-            <label for="category">Category: &nbsp; </label>
-            <select name="category">
-              <option value="New Song">New Song</option>
-              <option value="Religious">Religious</option>
-              <option value="Old Is Gold">Old Is Gold</option>
-              <option value="Instrumental">Instrumental</option>
-              <option value="Sad">Sad</option>
-              <option value="Rap">Rap</option>
-              <option value="Other">Other</option>
-            </select>
-            <br />
-            <button>Submit</button>
-          </form>
-        </div>
 
-        <div style={{ paddingTop: "50px", margin: "25px" }}>
-          <h3>Your Videos</h3>
+        <Container fluid>
+          <Row>
+            <Col xs={0} sm={1}></Col>
+
+            <Col
+              xs={12}
+              sm={5}
+              style={{
+                paddingTop: "40px",
+                margin: "25px 0px",
+              }}
+            >
+              <div>
+                <h3 style={{ color: "#E0A800" }}>Upload Video</h3>
+                <br />
+                <form onSubmit={onVideoSubmit}>
+                  <p>
+                    File: &nbsp;
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={onFileChange}
+                    />
+                  </p>
+                  <p>
+                    Video Name:&nbsp;
+                    <input
+                      type="text"
+                      name="videoname"
+                      placeholder="VIDEO NAME"
+                    />
+                  </p>
+                  <p>
+                    Thumbnail:&nbsp;
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={onThumbnailFileChange}
+                    />
+                  </p>
+                  <p>
+                    <label for="category">Category: &nbsp; </label>
+                    <select name="category">
+                      <option value="New Song">New Song</option>
+                      <option value="Religious">Religious</option>
+                      <option value="Old Is Gold">Old Is Gold</option>
+                      <option value="Instrumental">Instrumental</option>
+                      <option value="Sad">Sad</option>
+                      <option value="Rap">Rap</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </p>
+                  <button>Submit</button>
+                </form>
+              </div>
+            </Col>
+
+            <Col xs={0} sm={1}></Col>
+
+            <Col
+              xs={12}
+              sm={5}
+              style={{ paddingTop: "40px", margin: "25px 0px" }}
+            >
+              <h3 style={{ color: "#E0A800" }}>Update Your Profile</h3>
+              <br />
+              <form onSubmit={onUserDetailSubmit}>
+                <p>
+                  University Roll Number: &nbsp;
+                  <input
+                    type="text"
+                    name="universityRoll"
+                    placeholder="University Roll Number"
+                  />
+                </p>
+                <p>
+                  <label for="branch">Branch: &nbsp; </label>
+                  <select name="branch">
+                    <option value="IT">IT</option>
+                    <option value="CSE">CSE</option>
+                    <option value="ECE">ECE</option>
+                    <option value="ME">ME</option>
+                    <option value="EN">EN</option>
+                  </select>
+                </p>
+                <p>
+                  <label for="yearOfStudy">Year Of Study: &nbsp; </label>
+                  <select name="yearOfStudy">
+                    <option value="First">First</option>
+                    <option value="Second">Second</option>
+                    <option value="Third">Third</option>
+                    <option value="Four">Four</option>
+                  </select>
+                </p>
+                <button>Submit</button>
+              </form>
+            </Col>
+          </Row>
+        </Container>
+
+        <div style={{ paddingTop: "20px", margin: "25px" }}>
+          <h3 style={{ color: "#E0A800" }}>Your Videos</h3>
           <Container fluid>
             <Row>
               {users.map((user) => {

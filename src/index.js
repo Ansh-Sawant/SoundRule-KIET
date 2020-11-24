@@ -2,9 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+// import logo from "./Images/sound.jpeg";
+// import Userpage from "./Userpage";
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* <Userpage name={"currUser"} email={"email"} photoURL={logo} /> */}
     <App />
   </React.StrictMode>,
   document.getElementById("root")
