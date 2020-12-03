@@ -7,12 +7,14 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 const db = app.firestore();
 
 const Userpage = (props) => {
-  const [fileUrl, setFileUrl] = useState(null);
-  const [thumbnailUrl, setThumbnailUrl] = useState(null);
+  const [file, setFile] = useState(null);
+  const [thumbnail, setThumbnail] = useState(null);
   const [users, setUsers] = useState([]);
+  const [uploading, setUploading] = useState(false);
 
   const onVideoSubmit = async (e) => {
     e.preventDefault();
+
     let newDate = new Date();
     let date = newDate.getDate();
     let month = newDate.getMonth() + 1;
@@ -28,9 +30,31 @@ const Userpage = (props) => {
       );
       return;
     }
+
+    const storageRef = app.storage().ref();
+    const fileRef = storageRef.child("Videos/" + username + " <--> " + video);
+    setUploading(true);
+    try {
+      await fileRef.put(file).then((snap) => {
+        setUploading(false);
+        window.alert(
+          "Video Uploaded Successfully. Please Refresh To See The Change. Thanks"
+        );
+      });
+    } catch (error) {
+      window.alert(error);
+    }
+
+    const thumbnailRef = storageRef.child(
+      "Thumbnail/" + username + "/" + thumbnail.name
+    );
+    await thumbnailRef.put(thumbnail);
+    const fileUrl = await fileRef.getDownloadURL();
+    const thumbnailUrl = await thumbnailRef.getDownloadURL();
+
     await db
       .collection("users")
-      .doc(video)
+      .doc(video + " <--> " + username)
       .set({
         name: username,
         videoname: video,
@@ -65,23 +89,17 @@ const Userpage = (props) => {
   };
 
   const onFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (file.size > 10 * 1024 * 1024) {
+    const currfile = e.target.files[0];
+    if (currfile.size > 10 * 1024 * 1024) {
       window.alert("File Size Should Be Less Than 10 mb! Please Try Again");
       return;
     }
-    const storageRef = app.storage().ref();
-    const fileRef = storageRef.child(file.name);
-    await fileRef.put(file);
-    setFileUrl(await fileRef.getDownloadURL());
+    setFile(currfile);
   };
 
   const onThumbnailFileChange = async (e) => {
-    const file = e.target.files[0];
-    const storageRef = app.storage().ref();
-    const fileRef = storageRef.child(file.name);
-    await fileRef.put(file);
-    setThumbnailUrl(await fileRef.getDownloadURL());
+    const currfile = e.target.files[0];
+    setThumbnail(currfile);
   };
 
   useEffect(() => {
@@ -196,6 +214,13 @@ const Userpage = (props) => {
                   </p>
                   <button>Submit</button>
                 </form>
+                {uploading ? (
+                  <p style={{ fontWeight: "bold", marginTop: "10px" }}>
+                    Video is Uploading... Please Wait!
+                  </p>
+                ) : (
+                  ""
+                )}
               </div>
             </Col>
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import app from "./fire";
-import { Container, Row } from "react-bootstrap";
+import { Container, Row, Dropdown } from "react-bootstrap";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Video from "./Video";
 
@@ -24,8 +24,27 @@ const Allvideo = () => {
   return (
     <>
       <div style={{ paddingTop: "60px", margin: "5px" }}>
-        <h2>Videos</h2>
         <Container fluid>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Search By Category
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item href="#newsongs">New Songs</Dropdown.Item>
+              <Dropdown.Item href="#religious">Religious</Dropdown.Item>
+              <Dropdown.Item href="#oldisgold">Old is Gold</Dropdown.Item>
+              <Dropdown.Item href="#instrumental">Instrumental</Dropdown.Item>
+              <Dropdown.Item href="#sadsongs">Sad Songs</Dropdown.Item>
+              <Dropdown.Item href="#rap">Rap</Dropdown.Item>
+              <Dropdown.Item href="#others">Others</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+          <div id="newsongs" style={{ marginTop: "10px" }}>
+            &nbsp;
+          </div>
+
           <div className="category">
             <div style={{ marginLeft: "15px" }}>
               <h5>New Songs</h5>
@@ -37,12 +56,22 @@ const Allvideo = () => {
             </div>
           </div>
 
-          <h5>Religious</h5>
-          <Row>
-            {users.map((user) => {
-              return <Video user={user} cate={"Religious"} />;
-            })}
-          </Row>
+          <div id="religious" className="space">
+            &nbsp;
+          </div>
+
+          <div>
+            <h5>Religious</h5>
+            <Row>
+              {users.map((user) => {
+                return <Video user={user} cate={"Religious"} />;
+              })}
+            </Row>
+          </div>
+
+          <div id="oldisgold" className="space">
+            &nbsp;
+          </div>
 
           <div className="category">
             <div style={{ marginLeft: "15px" }}>
@@ -55,12 +84,21 @@ const Allvideo = () => {
             </div>
           </div>
 
-          <h5>Instrumental</h5>
-          <Row>
-            {users.map((user) => {
-              return <Video user={user} cate={"Instrumental"} />;
-            })}
-          </Row>
+          <div id="instrumental" className="space">
+            &nbsp;
+          </div>
+          <div>
+            <h5>Instrumental</h5>
+            <Row>
+              {users.map((user) => {
+                return <Video user={user} cate={"Instrumental"} />;
+              })}
+            </Row>
+          </div>
+
+          <div id="sadsongs" className="space">
+            &nbsp;
+          </div>
 
           <div className="category">
             <div style={{ marginLeft: "15px" }}>
@@ -73,13 +111,21 @@ const Allvideo = () => {
             </div>
           </div>
 
-          <h5>Rap</h5>
-          <Row>
-            {users.map((user) => {
-              return <Video user={user} cate={"Rap"} />;
-            })}
-          </Row>
+          <div id="rap" className="space">
+            &nbsp;
+          </div>
+          <div>
+            <h5>Rap</h5>
+            <Row>
+              {users.map((user) => {
+                return <Video user={user} cate={"Rap"} />;
+              })}
+            </Row>
+          </div>
 
+          <div id="others" className="space">
+            &nbsp;
+          </div>
           <div className="category">
             <div style={{ marginLeft: "15px" }}>
               <h5>Others</h5>

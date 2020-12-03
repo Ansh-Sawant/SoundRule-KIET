@@ -10,7 +10,6 @@ import Homelogin from "./Homelogin";
 import Homemainpage from "./Homemainpage";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
-import ErrorPage from "./ErrorPage";
 
 function App() {
   const [user, setUser] = useState("");
@@ -104,7 +103,9 @@ function App() {
             />
             <Route path="/aboutus" component={AboutUs} />
             <Route path="/contactus" component={ContactUs} />
-            <Route component={ErrorPage} />
+            <Route
+              render={(props) => <Homelogin {...props} onSubmit={onSubmit} />}
+            />
           </Switch>
         </Router>
       )}
