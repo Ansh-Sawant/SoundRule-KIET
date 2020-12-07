@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import app from "./fire";
 import { Container, Row, Dropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Video from "./Video";
 
@@ -47,11 +48,23 @@ const Allvideo = () => {
 
           <div className="category">
             <div style={{ marginLeft: "15px" }}>
-              <h5>New Songs</h5>
+              <h5> New Songs </h5>
               <Row>
                 {users.map((user) => {
                   return <Video user={user} cate={"New Song"} />;
                 })}
+              </Row>
+              <Row>
+                <Link
+                  to="/newsong"
+                  style={{
+                    color: "GrayText",
+                    margin: "4px",
+                    textDecoration: "none",
+                  }}
+                >
+                  See More
+                </Link>
               </Row>
             </div>
           </div>
@@ -67,6 +80,18 @@ const Allvideo = () => {
                 return <Video user={user} cate={"Religious"} />;
               })}
             </Row>
+            <Row>
+              <Link
+                to="/religious"
+                style={{
+                  color: "GrayText",
+                  margin: "4px",
+                  textDecoration: "none",
+                }}
+              >
+                See More
+              </Link>
+            </Row>
           </div>
 
           <div id="oldisgold" className="space">
@@ -81,6 +106,18 @@ const Allvideo = () => {
                   return <Video user={user} cate={"Old Is Gold"} />;
                 })}
               </Row>
+              <Row>
+                <Link
+                  to="/oldisgold"
+                  style={{
+                    color: "GrayText",
+                    margin: "4px",
+                    textDecoration: "none",
+                  }}
+                >
+                  See More
+                </Link>
+              </Row>
             </div>
           </div>
 
@@ -93,6 +130,18 @@ const Allvideo = () => {
               {users.map((user) => {
                 return <Video user={user} cate={"Instrumental"} />;
               })}
+            </Row>
+            <Row>
+              <Link
+                to="/instrumental"
+                style={{
+                  color: "GrayText",
+                  margin: "4px",
+                  textDecoration: "none",
+                }}
+              >
+                See More
+              </Link>
             </Row>
           </div>
 
@@ -108,6 +157,18 @@ const Allvideo = () => {
                   return <Video user={user} cate={"Sad"} />;
                 })}
               </Row>
+              <Row>
+                <Link
+                  to="/sadsongs"
+                  style={{
+                    color: "GrayText",
+                    margin: "4px",
+                    textDecoration: "none",
+                  }}
+                >
+                  See More
+                </Link>
+              </Row>
             </div>
           </div>
 
@@ -121,6 +182,18 @@ const Allvideo = () => {
                 return <Video user={user} cate={"Rap"} />;
               })}
             </Row>
+            <Row>
+              <Link
+                to="/rap"
+                style={{
+                  color: "GrayText",
+                  margin: "4px",
+                  textDecoration: "none",
+                }}
+              >
+                See More
+              </Link>
+            </Row>
           </div>
 
           <div id="others" className="space">
@@ -133,6 +206,18 @@ const Allvideo = () => {
                 {users.map((user) => {
                   return <Video user={user} cate={"Other"} />;
                 })}
+              </Row>
+              <Row>
+                <Link
+                  to="/others"
+                  style={{
+                    color: "GrayText",
+                    margin: "4px",
+                    textDecoration: "none",
+                  }}
+                >
+                  See More
+                </Link>
               </Row>
             </div>
           </div>

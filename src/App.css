@@ -40,8 +40,9 @@
 
 .videoModal {
   margin-bottom: 10px;
-  width: 480px;
-  height: 270px;
+  margin-left: 5px;
+  width: 720px;
+  height: 405px;
 }
 
 .mainPageVideos {

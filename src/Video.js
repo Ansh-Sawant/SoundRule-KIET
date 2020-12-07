@@ -26,20 +26,20 @@ function MyVerticallyCenteredModal(props) {
               <p style={{ fontSize: "14px", color: "GrayText" }}>
                 {props.dateadded}
               </p>
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={2} md={1}>
-              <Image
-                src={props.profilepic}
-                width="40"
-                height="40"
-                alt="profile"
-                roundedCircle
-              />
-            </Col>
-            <Col xs md>
-              <b>{props.username}</b>
+              <Row>
+                <Col xs={2} md={1}>
+                  <Image
+                    src={props.profilepic}
+                    width="40"
+                    height="40"
+                    alt="profile"
+                    roundedCircle
+                  />
+                </Col>
+                <Col xs md>
+                  <b>{props.username}</b>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Container>

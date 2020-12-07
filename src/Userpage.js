@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image, Spinner } from "react-bootstrap";
 import app from "./fire";
 import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { useHistory } from "react-router-dom";
 
 const db = app.firestore();
 
@@ -11,6 +12,7 @@ const Userpage = (props) => {
   const [thumbnail, setThumbnail] = useState(null);
   const [users, setUsers] = useState([]);
   const [uploading, setUploading] = useState(false);
+  const history = useHistory();
 
   const onVideoSubmit = async (e) => {
     e.preventDefault();
@@ -32,21 +34,19 @@ const Userpage = (props) => {
     }
 
     const storageRef = app.storage().ref();
-    const fileRef = storageRef.child("Videos/" + username + " <--> " + video);
+    const fileRef = storageRef.child("Videos/" + username + " -> " + video);
     setUploading(true);
     try {
       await fileRef.put(file).then((snap) => {
         setUploading(false);
-        window.alert(
-          "Video Uploaded Successfully. Please Refresh To See The Change. Thanks"
-        );
+        window.alert("Video Uploaded Successfully!");
       });
     } catch (error) {
       window.alert(error);
     }
 
     const thumbnailRef = storageRef.child(
-      "Thumbnail/" + username + "/" + thumbnail.name
+      "Thumbnail/" + username + " -> " + thumbnail.name
     );
     await thumbnailRef.put(thumbnail);
     const fileUrl = await fileRef.getDownloadURL();
@@ -54,7 +54,7 @@ const Userpage = (props) => {
 
     await db
       .collection("users")
-      .doc(video + " <--> " + username)
+      .doc(cate + " -> " + video + " -> " + username)
       .set({
         name: username,
         videoname: video,
@@ -64,6 +64,8 @@ const Userpage = (props) => {
         profilepic: profilepic,
         dateadded: `${date}/${month}/${year}`,
       });
+
+    history.push("/");
   };
 
   const onUserDetailSubmit = async (e) => {
@@ -212,11 +214,13 @@ const Userpage = (props) => {
                       <option value="Other">Other</option>
                     </select>
                   </p>
+
                   <button>Submit</button>
                 </form>
                 {uploading ? (
                   <p style={{ fontWeight: "bold", marginTop: "10px" }}>
-                    Video is Uploading... Please Wait!
+                    <Spinner animation="border" /> &nbsp; &nbsp; Video is
+                    Uploading... Please Wait!
                   </p>
                 ) : (
                   ""

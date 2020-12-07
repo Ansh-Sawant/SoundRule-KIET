@@ -7,6 +7,7 @@ import Allvideos from "./Allvideos";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
 import ErrorPage from "./ErrorPage";
+import CategoryWiseVideo from "./CategoryWiseVideo";
 
 const Homemainpage = (props) => {
   const currUser = props.user.displayName;
@@ -58,9 +59,12 @@ const Homemainpage = (props) => {
               </Link>
             </Nav>
             <Nav>
-              <Button variant="warning" onClick={props.handleLogout}>
-                LOG OUT
-              </Button>
+              <Link to="/">
+                <Button variant="warning" onClick={props.handleLogout}>
+                  LOG OUT
+                </Button>
+              </Link>
+
               <Link
                 to="/user"
                 style={{
@@ -86,6 +90,48 @@ const Homemainpage = (props) => {
                 email={email}
                 photoURL={photoURL}
               />
+            )}
+          />
+          <Route
+            path="/newsong"
+            render={(props) => (
+              <CategoryWiseVideo {...props} category={"New Song"} />
+            )}
+          />
+          <Route
+            path="/religious"
+            render={(props) => (
+              <CategoryWiseVideo {...props} category={"Religious"} />
+            )}
+          />
+          <Route
+            path="/oldisgold"
+            render={(props) => (
+              <CategoryWiseVideo {...props} category={"Old Is Gold"} />
+            )}
+          />
+          <Route
+            path="/instrumental"
+            render={(props) => (
+              <CategoryWiseVideo {...props} category={"Instrumental"} />
+            )}
+          />
+          <Route
+            path="/sadsongs"
+            render={(props) => (
+              <CategoryWiseVideo {...props} category={"Sad"} />
+            )}
+          />
+          <Route
+            path="/rap"
+            render={(props) => (
+              <CategoryWiseVideo {...props} category={"Rap"} />
+            )}
+          />
+          <Route
+            path="/others"
+            render={(props) => (
+              <CategoryWiseVideo {...props} category={"Other"} />
             )}
           />
           <Route path="/aboutus" component={AboutUs} />
