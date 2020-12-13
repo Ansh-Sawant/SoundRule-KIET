@@ -27,14 +27,14 @@ function App() {
         console.log(error);
       });
 
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //   if (user) {
-    //     console.log("User Signed In");
-    //     console.log(user);
-    //   } else {
-    //     console.log("User Not Signed In");
-    //   }
-    // });
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        console.log("User Signed In");
+        console.log(user);
+      } else {
+        console.log("User Not Signed In");
+      }
+    });
   };
 
   const handleLogout = () => {

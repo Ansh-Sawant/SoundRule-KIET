@@ -61,12 +61,7 @@ const Video = (props) => {
     <>
       {props.user.category === props.cate ? (
         <Col md={3} key={videoname}>
-          <video
-            src={avatar}
-            poster={thumbnail}
-            controls
-            className="mainPageVideos"
-          />
+          <video src={avatar} poster={thumbnail} className="mainPageVideos" />
           <Row style={{ marginBottom: "20px" }}>
             <Col xs={2}>
               <Image
