@@ -2,6 +2,9 @@ import React from "react";
 import { Button, Container, Row, Col, Modal } from "react-bootstrap";
 import cimage from "./Images/centerimg.png";
 
+// LOGIN PAGE OF SOUNDRULE
+
+// ***** "MyVerticallyCenteredModal" is for "More About SoundRule". It will open in center.
 function MyVerticallyCenteredModal(props) {
   return (
     <Modal
@@ -24,12 +27,26 @@ function MyVerticallyCenteredModal(props) {
           can be decided by their videos or songs posted on this website.
         </p>
         <b>How To Use</b>
-        <p>
-          - First sign in through your Google account to access the site. <br />
-          - After successful login, you will see the main page of the site
-          showing videos/audios uploaded by all users. <br />- Also there will
-          be a User's page showing by the name of the user
-        </p>
+        <ul>
+          <li>First sign in through your Google account to access the site.</li>
+          <li>
+            After successful login, you will see the main page of the site
+            showing videos/audios uploaded by all users. In this page, you can
+            enjoy watching all user's content.
+          </li>
+          <li>
+            There are seven categories in the main page- New Song, Religious,
+            Old Is Gold, Instrumental, Sad, Rap and Other. You can click "See
+            More" to see all the videos under that category.
+          </li>
+          <li>
+            Also there will be a User's page showing by the name of the user.
+          </li>
+          <li>
+            On User's page you can upload video and update your profile. Here,
+            you can also see your uploaded videos (if any).
+          </li>
+        </ul>
       </Modal.Body>
       <Modal.Footer style={{ justifyContent: "flex-start" }}>
         <p>Copyright &copy; SoundRule 2020 - 2021</p>

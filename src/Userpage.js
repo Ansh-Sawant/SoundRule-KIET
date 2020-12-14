@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Image, Spinner } from "react-bootstrap";
 import app from "./fire";
 import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col, Image, Spinner } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
+
+// THIS COMPONENT IS PERSONAL USERS PAGE
 
 const db = app.firestore();
 
@@ -14,6 +16,7 @@ const Userpage = (props) => {
   const [uploading, setUploading] = useState(false);
   const history = useHistory();
 
+  // ***** On clicking the button for Video upload, "onVideoSubmit" function will occur
   const onVideoSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,16 +36,16 @@ const Userpage = (props) => {
       return;
     }
 
+    // ***** Uploading the video on Firebase "Storage"
     const storageRef = app.storage().ref();
     const fileRef = storageRef.child("Videos/" + username + " -> " + video);
     setUploading(true);
     try {
-      await fileRef.put(file).then((snap) => {
+      await fileRef.put(file).then(() => {
         setUploading(false);
-        window.alert("Video Uploaded Successfully!");
       });
     } catch (error) {
-      window.alert(error);
+      window.alert("Error Uploading Video");
     }
 
     const thumbnailRef = storageRef.child(
@@ -52,9 +55,25 @@ const Userpage = (props) => {
     const fileUrl = await fileRef.getDownloadURL();
     const thumbnailUrl = await thumbnailRef.getDownloadURL();
 
+    window.alert("Video Uploaded Successfully!");
+
+    // ***** Uploading the video on Firebase "Firestore"
+    await db
+      .collection(cate)
+      .doc(video + " -> " + username)
+      .set({
+        name: username,
+        videoname: video,
+        thumbnail: thumbnailUrl,
+        avatar: fileUrl,
+        category: cate,
+        profilepic: profilepic,
+        dateadded: `${date}/${month}/${year}`,
+      });
+
     await db
       .collection("users")
-      .doc(cate + " -> " + video + " -> " + username)
+      .doc(video + " -> " + username)
       .set({
         name: username,
         videoname: video,
@@ -68,6 +87,7 @@ const Userpage = (props) => {
     history.push("/");
   };
 
+  // ****** When user submits its own detail, "onUserDetailSubmit" function will occur
   const onUserDetailSubmit = async (e) => {
     e.preventDefault();
     const username = props.name;
@@ -81,15 +101,22 @@ const Userpage = (props) => {
       );
       return;
     }
-    await db.collection("usersdetail").doc(username).set({
-      Name: username,
-      Email: email,
-      UniversityRoll: universityRoll,
-      Branch: branch,
-      Year: yearOfStudy,
-    });
+    // ***** Uploading the users detail on Firebase "Firestore"
+    await db
+      .collection("usersdetail")
+      .doc(username + " -> " + email)
+      .set({
+        Name: username,
+        Email: email,
+        UniversityRoll: universityRoll,
+        Branch: branch,
+        Year: yearOfStudy,
+      });
+
+    window.alert("Updated Your Profile Successfully");
   };
 
+  // ***** If some video is linked from user's pc to website, then "onFileChange" will occur
   const onFileChange = async (e) => {
     const currfile = e.target.files[0];
     if (currfile.size > 10 * 1024 * 1024) {
@@ -99,11 +126,13 @@ const Userpage = (props) => {
     setFile(currfile);
   };
 
+  // ***** If some thumbnail pic is linked from user's pc to website, then "onThumbnailFileChange" will occur
   const onThumbnailFileChange = async (e) => {
     const currfile = e.target.files[0];
     setThumbnail(currfile);
   };
 
+  // ***** Fetching all videos from Firebase "Firestore"
   useEffect(() => {
     const fetchUsers = async () => {
       const usersCollection = await db.collection("users").get();
@@ -151,12 +180,17 @@ const Userpage = (props) => {
           <Row
             style={{ marginTop: "40px", fontFamily: "'Roboto', sans-serif" }}
           >
+            {/* "Note" for all Users */}
             <Col xs={12} className="noteBox">
               <h5>NOTE:- </h5>
               <p>
                 &nbsp; - The Maximum Size of the Video must be 10 mb <br />
                 &nbsp; - All Fields Are Necessary On Uploading Your Video and
-                Updating Your Profile
+                Updating Your Profile <br />
+                &nbsp; - Preferred Size of the Thumbnail is 320 x 180 for Best
+                Fit <br />
+                &nbsp; - If you want to delete any of your video, you have to
+                Contact Us and send the details of the video
               </p>
             </Col>
           </Row>
@@ -166,6 +200,7 @@ const Userpage = (props) => {
           <Row>
             <Col xs={0} sm={1}></Col>
 
+            {/* Uploading the video */}
             <Col
               xs={12}
               sm={5}
@@ -203,7 +238,7 @@ const Userpage = (props) => {
                     />
                   </p>
                   <p>
-                    <label for="category">Category: &nbsp; </label>
+                    <label htmlFor="category">Category: &nbsp; </label>
                     <select name="category">
                       <option value="New Song">New Song</option>
                       <option value="Religious">Religious</option>
@@ -230,6 +265,7 @@ const Userpage = (props) => {
 
             <Col xs={0} sm={1}></Col>
 
+            {/* Update Your Profile */}
             <Col
               xs={12}
               sm={5}
@@ -247,7 +283,7 @@ const Userpage = (props) => {
                   />
                 </p>
                 <p>
-                  <label for="branch">Branch: &nbsp; </label>
+                  <label htmlFor="branch">Branch: &nbsp; </label>
                   <select name="branch">
                     <option value="IT">IT</option>
                     <option value="CSE">CSE</option>
@@ -257,7 +293,7 @@ const Userpage = (props) => {
                   </select>
                 </p>
                 <p>
-                  <label for="yearOfStudy">Year Of Study: &nbsp; </label>
+                  <label htmlFor="yearOfStudy">Year Of Study: &nbsp; </label>
                   <select name="yearOfStudy">
                     <option value="First">First</option>
                     <option value="Second">Second</option>
@@ -271,13 +307,20 @@ const Userpage = (props) => {
           </Row>
         </Container>
 
+        {/* All the videos of the user are shown here */}
         <div style={{ paddingTop: "20px", margin: "25px" }}>
           <h3 style={{ color: "#E0A800" }}>Your Videos</h3>
           <Container fluid>
             <Row>
               {users.map((user) => {
                 return user.name === props.name ? (
-                  <Col md={3} key={user.videoname}>
+                  <Col
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    xl={3}
+                    key={user.videoname + user.name}
+                  >
                     <video
                       width="320"
                       height="180"

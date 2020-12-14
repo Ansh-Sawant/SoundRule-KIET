@@ -8,18 +8,85 @@ import Video from "./Video";
 const db = app.firestore();
 
 const Allvideo = () => {
-  const [users, setUsers] = useState([]);
+  const [newSong, setNewSong] = useState([]);
+  const [religious, setReligious] = useState([]);
+  const [oldisgold, setOldIsGold] = useState([]);
+  const [instrumental, setInstrumental] = useState([]);
+  const [sad, setSad] = useState([]);
+  const [rap, setRap] = useState([]);
+  const [other, setOther] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const usersCollection = await db.collection("users").get();
-      setUsers(
+    const fetchNewSong = async () => {
+      const usersCollection = await db.collection("New Song").get();
+      setNewSong(
         usersCollection.docs.map((doc) => {
           return doc.data();
         })
       );
     };
-    fetchUsers();
+
+    const fetchReligious = async () => {
+      const usersCollection = await db.collection("Religious").get();
+      setReligious(
+        usersCollection.docs.map((doc) => {
+          return doc.data();
+        })
+      );
+    };
+
+    const fetchOldOIsGold = async () => {
+      const usersCollection = await db.collection("Old Is Gold").get();
+      setOldIsGold(
+        usersCollection.docs.map((doc) => {
+          return doc.data();
+        })
+      );
+    };
+
+    const fetchInstrumental = async () => {
+      const usersCollection = await db.collection("Instrumental").get();
+      setInstrumental(
+        usersCollection.docs.map((doc) => {
+          return doc.data();
+        })
+      );
+    };
+
+    const fetchSad = async () => {
+      const usersCollection = await db.collection("Sad").get();
+      setSad(
+        usersCollection.docs.map((doc) => {
+          return doc.data();
+        })
+      );
+    };
+
+    const fetchRap = async () => {
+      const usersCollection = await db.collection("Rap").get();
+      setRap(
+        usersCollection.docs.map((doc) => {
+          return doc.data();
+        })
+      );
+    };
+
+    const fetchOther = async () => {
+      const usersCollection = await db.collection("Other").get();
+      setOther(
+        usersCollection.docs.map((doc) => {
+          return doc.data();
+        })
+      );
+    };
+
+    fetchNewSong();
+    fetchReligious();
+    fetchOldOIsGold();
+    fetchInstrumental();
+    fetchSad();
+    fetchRap();
+    fetchOther();
   }, []);
 
   return (
@@ -50,8 +117,8 @@ const Allvideo = () => {
             <div style={{ marginLeft: "15px" }}>
               <h5> New Songs </h5>
               <Row>
-                {users.map((user) => {
-                  return <Video user={user} cate={"New Song"} />;
+                {newSong.slice(0, 4).map((user) => {
+                  return <Video user={user} key={user.videoname} />;
                 })}
               </Row>
               <Row>
@@ -76,8 +143,8 @@ const Allvideo = () => {
           <div>
             <h5>Religious</h5>
             <Row>
-              {users.map((user) => {
-                return <Video user={user} cate={"Religious"} />;
+              {religious.slice(0, 4).map((user) => {
+                return <Video user={user} key={user.videoname} />;
               })}
             </Row>
             <Row>
@@ -102,8 +169,8 @@ const Allvideo = () => {
             <div style={{ marginLeft: "15px" }}>
               <h5>Old is Gold</h5>
               <Row>
-                {users.map((user) => {
-                  return <Video user={user} cate={"Old Is Gold"} />;
+                {oldisgold.slice(0, 4).map((user) => {
+                  return <Video user={user} key={user.videoname} />;
                 })}
               </Row>
               <Row>
@@ -127,8 +194,8 @@ const Allvideo = () => {
           <div>
             <h5>Instrumental</h5>
             <Row>
-              {users.map((user) => {
-                return <Video user={user} cate={"Instrumental"} />;
+              {instrumental.slice(0, 4).map((user) => {
+                return <Video user={user} key={user.videoname} />;
               })}
             </Row>
             <Row>
@@ -153,8 +220,8 @@ const Allvideo = () => {
             <div style={{ marginLeft: "15px" }}>
               <h5>Sad Songs</h5>
               <Row>
-                {users.map((user) => {
-                  return <Video user={user} cate={"Sad"} />;
+                {sad.slice(0, 4).map((user) => {
+                  return <Video user={user} key={user.videoname} />;
                 })}
               </Row>
               <Row>
@@ -178,8 +245,8 @@ const Allvideo = () => {
           <div>
             <h5>Rap</h5>
             <Row>
-              {users.map((user) => {
-                return <Video user={user} cate={"Rap"} />;
+              {rap.slice(0, 4).map((user) => {
+                return <Video user={user} key={user.videoname} />;
               })}
             </Row>
             <Row>
@@ -203,8 +270,8 @@ const Allvideo = () => {
             <div style={{ marginLeft: "15px" }}>
               <h5>Others</h5>
               <Row>
-                {users.map((user) => {
-                  return <Video user={user} cate={"Other"} />;
+                {other.slice(0, 4).map((user) => {
+                  return <Video user={user} key={user.videoname} />;
                 })}
               </Row>
               <Row>

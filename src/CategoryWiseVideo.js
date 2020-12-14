@@ -29,7 +29,11 @@ const CategoryWiseVideo = (props) => {
           <div style={{ marginLeft: "15px" }}>
             <Row>
               {users.map((user) => {
-                return <Video user={user} cate={props.category} />;
+                return user.category === props.category ? (
+                  <Video user={user} />
+                ) : (
+                  ""
+                );
               })}
             </Row>
           </div>

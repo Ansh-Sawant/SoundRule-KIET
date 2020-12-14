@@ -9,6 +9,8 @@ import ContactUs from "./ContactUs";
 import ErrorPage from "./ErrorPage";
 import CategoryWiseVideo from "./CategoryWiseVideo";
 
+// THIS COMPONENT IS FOR SHOWING ALL VIDEOS UPLOADED BY ALL USERS
+
 const Homemainpage = (props) => {
   const currUser = props.user.displayName;
   const email = props.user.email;
@@ -17,6 +19,7 @@ const Homemainpage = (props) => {
   return (
     <>
       <Router>
+        {/* Navigation (Menu) Bar for this Page */}
         <Navbar
           collapseOnSelect
           expand="lg"
@@ -24,7 +27,7 @@ const Homemainpage = (props) => {
           variant="light"
           fixed="top"
         >
-          <Link exact to="/">
+          <Link exact="true" to="/">
             <img
               src={logo}
               width="70"
@@ -60,7 +63,7 @@ const Homemainpage = (props) => {
             </Nav>
             <Nav>
               <Link to="/">
-                <Button variant="warning" onClick={props.handleLogout}>
+                <Button variant="warning" onClick={() => props.handleLogout}>
                   LOG OUT
                 </Button>
               </Link>
@@ -78,7 +81,9 @@ const Homemainpage = (props) => {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+        {/* Menu Bar Ended */}
 
+        {/* Changing page b/w all categories */}
         <Switch>
           <Route path="/" exact component={Allvideos} />
           <Route

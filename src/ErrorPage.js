@@ -1,5 +1,7 @@
 import React from "react";
 
+// IF SOMEONE CHANGES THE URL(WRONG), THE THIS WILL OCCUR
+
 const ErrorPage = () => {
   return (
     <>

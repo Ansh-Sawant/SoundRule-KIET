@@ -14,6 +14,7 @@ import ContactUs from "./ContactUs";
 function App() {
   const [user, setUser] = useState("");
 
+  // ***** On Clicking "Sign In" button, "onSubmit" function will occur
   const onSubmit = () => {
     var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -24,19 +25,11 @@ function App() {
         setUser(result.user);
       })
       .catch(function (error) {
-        console.log(error);
+        window.alert("Error! Please Sign In Again");
       });
-
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        console.log("User Signed In");
-        console.log(user);
-      } else {
-        console.log("User Not Signed In");
-      }
-    });
   };
 
+  // ***** When the user clicks "Log Out", then "handleLogout" will occur
   const handleLogout = () => {
     fire.auth().signOut();
     setUser("");
@@ -48,6 +41,7 @@ function App() {
         <Homemainpage user={user} handleLogout={handleLogout} />
       ) : (
         <Router>
+          {/* Navigation (Menu) Bar for Homelogin Page */}
           <Navbar
             collapseOnSelect
             expand="lg"
@@ -55,7 +49,7 @@ function App() {
             variant="light"
             fixed="top"
           >
-            <Link exact to="/">
+            <Link exact="true" to="/">
               <img
                 src={logo}
                 width="70"
@@ -95,6 +89,7 @@ function App() {
             </Navbar.Collapse>
           </Navbar>
 
+          {/* For changing page from "Homelogin" to "About Us, Contact Us" */}
           <Switch>
             <Route
               path="/"

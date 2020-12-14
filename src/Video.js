@@ -2,6 +2,9 @@ import React from "react";
 import { Row, Col, Image, Modal, Container } from "react-bootstrap";
 import "./App.css";
 
+// ***** THIS COMPONENT IS JUST FOR SHOWING SINGLE VIDEO
+
+// ***** On Clicking the "Expand" button, "MyVerticallyCenteredModal" will open in center of page
 function MyVerticallyCenteredModal(props) {
   return (
     <Modal
@@ -59,43 +62,39 @@ const Video = (props) => {
 
   return (
     <>
-      {props.user.category === props.cate ? (
-        <Col md={3} key={videoname}>
-          <video src={avatar} poster={thumbnail} className="mainPageVideos" />
-          <Row style={{ marginBottom: "20px" }}>
-            <Col xs={2}>
-              <Image
-                src={profilepic}
-                width="40"
-                height="40"
-                alt="profile"
-                roundedCircle
-              />
-            </Col>
-            <Col xs>
-              <h6>{videoname}</h6> {username} | {dateadded}
-              <p
-                onClick={() => setModalShow(true)}
-                style={{ fontWeight: "bold", cursor: "pointer" }}
-              >
-                Expand
-              </p>
-              <MyVerticallyCenteredModal
-                videoname={videoname}
-                username={username}
-                dateadded={dateadded}
-                avatar={avatar}
-                thumbnail={thumbnail}
-                profilepic={profilepic}
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-              />
-            </Col>
-          </Row>
-        </Col>
-      ) : (
-        ""
-      )}
+      <Col xs={12} md={6} lg={4} xl={3} key={videoname + username}>
+        <video src={avatar} poster={thumbnail} className="mainPageVideos" />
+        <Row style={{ marginBottom: "20px" }}>
+          <Col xs={2}>
+            <Image
+              src={profilepic}
+              width="40"
+              height="40"
+              alt="profile"
+              roundedCircle
+            />
+          </Col>
+          <Col xs>
+            <h6>{videoname}</h6> {username} | {dateadded}
+            <p
+              onClick={() => setModalShow(true)}
+              style={{ fontWeight: "bold", cursor: "pointer" }}
+            >
+              Expand
+            </p>
+            <MyVerticallyCenteredModal
+              videoname={videoname}
+              username={username}
+              dateadded={dateadded}
+              avatar={avatar}
+              thumbnail={thumbnail}
+              profilepic={profilepic}
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+            />
+          </Col>
+        </Row>
+      </Col>
     </>
   );
 };
