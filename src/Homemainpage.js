@@ -63,7 +63,7 @@ const Homemainpage = (props) => {
             </Nav>
             <Nav>
               <Link to="/">
-                <Button variant="warning" onClick={() => props.handleLogout}>
+                <Button variant="warning" onClick={props.handleLogout}>
                   LOG OUT
                 </Button>
               </Link>

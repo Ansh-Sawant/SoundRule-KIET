@@ -119,6 +119,10 @@ const Userpage = (props) => {
   // ***** If some video is linked from user's pc to website, then "onFileChange" will occur
   const onFileChange = async (e) => {
     const currfile = e.target.files[0];
+    if (!currfile) {
+      window.alert("Please select a video!");
+      return;
+    }
     if (currfile.size > 10 * 1024 * 1024) {
       window.alert("File Size Should Be Less Than 10 mb! Please Try Again");
       return;
@@ -129,6 +133,10 @@ const Userpage = (props) => {
   // ***** If some thumbnail pic is linked from user's pc to website, then "onThumbnailFileChange" will occur
   const onThumbnailFileChange = async (e) => {
     const currfile = e.target.files[0];
+    if (!currfile) {
+      window.alert("Please select a thumbnail!");
+      return;
+    }
     setThumbnail(currfile);
   };
 

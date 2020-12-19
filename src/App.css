@@ -99,6 +99,26 @@ button {
   margin: 20px 0px;
 }
 
+.playButton {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.playButton i {
+  display: none;
+}
+
+.playButton:hover {
+  width: 70px;
+  border-radius: 6px;
+  padding-left: 8px;
+  background-color: lightgrey;
+}
+
+.playButton:hover i {
+  display: inline;
+}
+
 /* CSS FOR DIFFERENT SIZED DEVICES (Mobile, etc)  */
 
 @media (max-width: 380px) {
@@ -175,4 +195,54 @@ button {
     width: 432px;
     height: 243px;
   }
+}
+
+/* CONTACT US Css */
+
+.contactForm {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contactForm > input,
+textarea {
+  padding: 5px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.137);
+  margin-bottom: 20px;
+  border: 1px solid lightgray;
+  background: #fff;
+  font-size: 16px;
+  color: black;
+  outline: none;
+}
+
+.contactForm > input:focus,
+textarea:focus {
+  border: 1px solid #e0a800;
+}
+
+.contactForm > label {
+  color: black;
+  font-weight: bold;
+}
+
+.contactForm > button {
+  border: none;
+  background-color: #e0a800;
+  font-weight: 500;
+  font-size: 20px;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  margin-top: 10px;
+}
+
+.footer {
+  background-color: lightgray;
+  color: black;
+  text-align: center;
 }

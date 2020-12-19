@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Image, Modal, Container } from "react-bootstrap";
+import "../node_modules/font-awesome/css/font-awesome.min.css";
 import "./App.css";
 
 // ***** THIS COMPONENT IS JUST FOR SHOWING SINGLE VIDEO
@@ -76,11 +77,8 @@ const Video = (props) => {
           </Col>
           <Col xs>
             <h6>{videoname}</h6> {username} | {dateadded}
-            <p
-              onClick={() => setModalShow(true)}
-              style={{ fontWeight: "bold", cursor: "pointer" }}
-            >
-              Expand
+            <p onClick={() => setModalShow(true)} className="playButton">
+              <i className="fa fa-play" /> PLAY
             </p>
             <MyVerticallyCenteredModal
               videoname={videoname}
