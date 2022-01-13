@@ -64,7 +64,11 @@ const Video = (props) => {
   return (
     <>
       <Col xs={12} md={6} lg={4} xl={3} key={videoname + username}>
-        <video src={avatar} poster={thumbnail} className="mainPageVideos" />
+        <img
+          src={thumbnail}
+          alt={videoname}
+          className="mainPageVideosThumbnail"
+        />
         <Row style={{ marginBottom: "20px" }}>
           <Col xs={2}>
             <Image

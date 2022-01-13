@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Row, Col, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import cimage from "./Images/centerimg.png";
 
 // LOGIN PAGE OF SOUNDRULE
@@ -61,49 +61,34 @@ const Homelogin = (props) => {
   return (
     <>
       <div className="bg">
-        <Container fluid className="mainBody">
+        <div className="mainBody">
           <h1 className="soundRule">
             Sound<span style={{ color: "rgb(228, 20, 72)" }}>Rule</span>
-            <span style={{ fontSize: "25px" }}> KIET</span>
+            <span className="nameKIET"> KIET</span>
           </h1>
           <h2 className="tagline"> Where Words Fail, Music Speaks </h2>
-          <Row>
-            <Col xs sm={3} md={4}></Col>
-            <Col xs={12} sm={6} md={4}>
-              <div className="loginBox">
-                <img src={cimage} alt="cimage" />
-                <br />
-              </div>
-            </Col>
-            <Col xs sm={3} md={4}></Col>
-          </Row>
-          {/* Sign In Buttons */}
-          <Row>
-            <Col xs lg={4}></Col>
-            <Col xs={12} lg={4} style={{ textAlign: "center" }}>
-              <Button
-                variant="warning"
-                onClick={props.onSubmit}
-                className="signInButton"
-              >
-                SIGN IN
-              </Button>
-              <Button
-                variant="warning"
-                onClick={() => setModalShow(true)}
-                className="signInButton"
-              >
-                More About SoundRule
-              </Button>
 
-              <MyVerticallyCenteredModal
-                show={modalShow}
-                onHide={() => setModalShow(false)}
-              />
-            </Col>
-            <Col xs lg={4}></Col>
-          </Row>
-        </Container>
+          <div className="loginBoxROW">
+            <div className="loginBox">
+              <img src={cimage} alt="cimage" />
+              <br />
+            </div>
+          </div>
+          {/* Sign In Buttons */}
+          <div className="loginBoxROW" style={{ textAlign: "center" }}>
+            <p onClick={props.onSubmit} className="signInButton">
+              SIGN IN
+            </p>
+            <p onClick={() => setModalShow(true)} className="signInButton">
+              More About SoundRule
+            </p>
+
+            <MyVerticallyCenteredModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+            />
+          </div>
+        </div>
       </div>
     </>
   );
